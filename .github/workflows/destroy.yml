@@ -1,0 +1,23 @@
+name: Destroy Infrastructure
+on:
+ workflow_dispatch:
+permissions:
+ id-token: write   # REQUIRED for OIDC
+ contents: read
+jobs:
+ destroy:
+   runs-on: ubuntu-latest
+   steps:
+     - name: Checkout code
+       uses: actions/checkout@v4
+     - name: Configure AWS credentials using OIDC
+       uses: aws-actions/configure-aws-credentials@v4
+       with:
+         role-to-assume: arn:aws:iam::208107893850:role/github-terraform-role
+         aws-region: ap-south-1  
+     - name: Setup Terraform
+       uses: hashicorp/setup-terraform@v3
+     - name: Terraform Init
+       run: terraform -chdir=iac init
+     - name: Terraform Destroy
+       run: terraform -chdir=iac destroy -auto-approve
