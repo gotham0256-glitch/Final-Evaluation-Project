@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket         = "your-terraform-state-bucket"
+    bucket         = "gotham0256-terraform-state-bucket"
     key            = "final-project/terraform.tfstate"
     region         = "ap-south-1"
     dynamodb_table = "terraform-lock-table"
