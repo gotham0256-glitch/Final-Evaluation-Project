@@ -27,3 +27,7 @@ resource "aws_iam_role_policy_attachment" "step_fn" {
  role       = aws_iam_role.main.name
  policy_arn = "arn:aws:iam::aws:policy/AWSStepFunctionsFullAccess"
 }
+resource "aws_iam_role_policy_attachment" "eventbridge" {
+ role       = aws_iam_role.main.name
+ policy_arn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
+}
