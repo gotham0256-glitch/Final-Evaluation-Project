@@ -36,31 +36,30 @@ resource "aws_iam_role_policy_attachment" "eventbridge" {
  role       = aws_iam_role.main.name
  policy_arn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
 }
-resource "aws_iam_role_policy" "stepfunction_logs" {
- role = aws_iam_role.main.id
- policy = jsonencode({
-   Version = "2012-10-17"
-   Statement = [
-     {
-       Effect = "Allow"
-       Action = [
-        "logs:CreateLogGroup",
-         "logs:CreateLogStream",
-         "logs:PutLogEvents",
-         "logs:DescribeLogGroups", 
-        "logs:DescribeLogStreams",
-
-        "logs:CreateLogDelivery",
-        "logs:GetLogDelivery",
-        "logs:UpdateLogDelivery",
-        "logs:DeleteLogDelivery",
-        "logs:ListLogDeliveries",
-        "logs:PutResourcePolicy",
-        "logs:DescribeResourcePolicies",
-        "logs:DescribeLogGroups"
-       ]
-       Resource = "*"
-     }
-   ]
- })
-}
+# resource "aws_iam_role_policy" "stepfunction_logs" {
+#  role = aws_iam_role.main.id
+#  policy = jsonencode({
+#    Version = "2012-10-17"
+#    Statement = [
+#      {
+#        Effect = "Allow"
+#        Action = [
+#         "logs:CreateLogGroup",
+#          "logs:CreateLogStream",
+#          "logs:PutLogEvents",
+#          "logs:DescribeLogGroups", 
+#         "logs:DescribeLogStreams",
+#         "logs:CreateLogDelivery",
+#         "logs:GetLogDelivery",
+#         "logs:UpdateLogDelivery",
+#         "logs:DeleteLogDelivery",
+#         "logs:ListLogDeliveries",
+#         "logs:PutResourcePolicy",
+#         "logs:DescribeResourcePolicies",
+#         "logs:DescribeLogGroups"
+#        ]
+#        Resource = "*"
+#      }
+#    ]
+#  })
+# }
