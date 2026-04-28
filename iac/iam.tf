@@ -48,7 +48,16 @@ resource "aws_iam_role_policy" "stepfunction_logs" {
          "logs:CreateLogStream",
          "logs:PutLogEvents",
          "logs:DescribeLogGroups", 
-        "logs:DescribeLogStreams"
+        "logs:DescribeLogStreams",
+
+        "logs:CreateLogDelivery",
+        "logs:GetLogDelivery",
+        "logs:UpdateLogDelivery",
+        "logs:DeleteLogDelivery",
+        "logs:ListLogDeliveries",
+        "logs:PutResourcePolicy",
+        "logs:DescribeResourcePolicies",
+        "logs:DescribeLogGroups"
        ]
        Resource = "*"
      }
