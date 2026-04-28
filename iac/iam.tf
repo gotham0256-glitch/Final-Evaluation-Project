@@ -26,7 +26,7 @@ resource "aws_iam_role_policy_attachment" "ec2_full" {  #ec2
 
 resource "aws_iam_role_policy_attachment" "ecs_exec" {   #ecs
  role       = aws_iam_role.main.name
- policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+ policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECS_FullAccess"
 }
 resource "aws_iam_role_policy_attachment" "step_fn" {   # step_function
  role       = aws_iam_role.main.name
