@@ -8,12 +8,22 @@ resource "aws_ecs_task_definition" "main" {
  cpu                      = "256"
  memory                   = "512"
  execution_role_arn       = aws_iam_role.main.arn
- container_definitions = jsonencode([
-   {
-     name      = "final-container"
-     image     = "public.ecr.aws/amazonlinux/amazonlinux:latest"
-     essential = true
-     command   = ["echo", "Main processing from ECS"]
-   }
- ])
+
+container_definitions = jsonencode([
+  {
+    name      = "final-container"
+    image     = "public.ecr.aws/amazonlinux/amazonlinux:latest"
+    essential = true
+    command   = ["echo", "Main processing from ECS"]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = "/aws/ecs/final-project"
+        awslogs-region        = "ap-south-1"
+        awslogs-stream-prefix = "ecs"
+      }
+    }
+  }
+])
 }
+ 
