@@ -19,7 +19,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
  name = "ec2-profile"
  role = aws_iam_role.main.name
 }
-resource "aws_iam_role_policy_attachement" "ec2_full" {  #ec2
+resource "aws_iam_role_policy_attachment" "ec2_full" {  #ec2
   role = aws_iam_role.main.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
 }
