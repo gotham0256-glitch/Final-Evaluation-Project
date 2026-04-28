@@ -42,7 +42,7 @@ EOF
 logging_configuration {
   level = "ALL"
   include_execution_data = true
-  log_destination = aws_cloudwatch_log_group.main.arn
+  log_destination = "${aws_cloudwatch_log_group.main.arn}:*"
 }
 }
 
