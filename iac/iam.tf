@@ -63,3 +63,29 @@ resource "aws_iam_role_policy" "stepfunction_logs" {
     ]
   })
  }
+ # EventBridge role to trigger Step Function
+resource "aws_iam_role" "eventbridge_role" {
+ name = "eventbridge-stepfunction-role"
+ assume_role_policy = jsonencode({
+   Version = "2012-10-17"
+   Statement = [{
+     Effect = "Allow"
+     Principal = {
+       Service = "events.amazonaws.com"
+     }
+     Action = "sts:AssumeRole"
+   }]
+ })
+}
+# EventBridge permission to trigger Step function
+resource "aws_iam_role_policy" "eventbridge_policy" {
+ role = aws_iam_role.eventbridge_role.id
+ policy = jsonencode({
+   Version = "2012-10-17"
+   Statement = [{
+     Effect = "Allow"
+     Action = "states:StartExecution"
+     Resource = aws_sfn_state_machine.main.arn
+   }]
+ })
+}
