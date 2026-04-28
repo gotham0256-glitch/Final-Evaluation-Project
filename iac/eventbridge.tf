@@ -13,8 +13,22 @@ resource "aws_cloudwatch_event_rule" "s3_upload" {
 }
 
 resource "aws_cloudwatch_event_target" "stepfunction" {
- rule      = aws_cloudwatch_event_rule.s3_upload.name
- target_id = "StepFunctionTarget"
- arn       = aws_sfn_state_machine.main.arn
- role_arn  = aws_iam_role.eventbridge_role.arn
+  rule      = aws_cloudwatch_event_rule.s3_upload.name
+  target_id = "StepFunctionTarget"
+  arn       = aws_sfn_state_machine.main.arn
+  role_arn  = aws_iam_role.eventbridge_role.arn
+  #
+input_transformer {
+    input_paths = {
+      bucket = "$.detail.bucket.name"
+      key    = "$.detail.object.key"
+    }
+    input_template = <<EOF
+{
+  "bucket": "<bucket>",
+  "key": "<key>"
 }
+EOF
+  }
+}
+ 

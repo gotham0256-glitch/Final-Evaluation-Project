@@ -25,6 +25,23 @@ resource "aws_sfn_state_machine" "main" {
        "Cluster": "${aws_ecs_cluster.main.arn}",
        "TaskDefinition": "${aws_ecs_task_definition.main.arn}",
        "LaunchType": "FARGATE",
+       "Overrides": {
+   "ContainerOverrides": [
+     {
+       "Name": "final-container",
+       "Environment": [
+         {
+           "Name": "BUCKET",
+           "Value.$": "$.bucket"
+         },
+         {
+           "Name": "KEY",
+           "Value.$": "$.key"
+         }
+       ]
+     }
+   ]
+ },
        "NetworkConfiguration": {
          "AwsvpcConfiguration": {
            "Subnets": ["${aws_subnet.public.id}"],

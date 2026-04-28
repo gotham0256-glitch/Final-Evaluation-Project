@@ -15,6 +15,7 @@ container_definitions = jsonencode([
     image     = "public.ecr.aws/amazonlinux/amazonlinux:latest"
     essential = true
     command   = ["echo", "Main processing from ECS"]
+    command = ["sh", "-c", "echo Processing file from $BUCKET/$KEY"]
     logConfiguration = {
       logDriver = "awslogs"
       options = {
