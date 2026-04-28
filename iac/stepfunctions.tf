@@ -9,8 +9,9 @@ resource "aws_sfn_state_machine" "main" {
      "Type": "Task",
      "Resource": "arn:aws:states:::aws-sdk:ec2:startInstances",
      "Parameters": {
-       "InstanceIds": ["${aws_instance.preprocess.id}"]
+       "InstanceIds": ["${aws_instance.preprocess.id}"]   
      },
+     "ResultPath": "$.ec2Result", 
      "Next": "WaitState"
    },
    "WaitState": {
