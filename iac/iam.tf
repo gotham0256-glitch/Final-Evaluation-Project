@@ -31,7 +31,7 @@ resource "aws_iam_role_policy_attachment" "policies" {  #
    ec2_full    = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
    ecs_exec    = "arn:aws:iam::aws:policy/AmazonECS_FullAccess"
    step_fn     = "arn:aws:iam::aws:policy/AWSStepFunctionsFullAccess"
-   eventbridge = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
+   #eventbridge = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
  }
  role       = aws_iam_role.main.name #kis role pe attach karna hai policies, yeh value loop ke bahar se aayegi, kyunki sab policies same role pe attach karni hai
  policy_arn = each.value  #kis policy ko attach karna hai role pe, yeh value each loop se aayegi
