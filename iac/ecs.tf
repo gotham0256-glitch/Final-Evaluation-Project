@@ -1,6 +1,8 @@
 resource "aws_ecs_cluster" "main" {
  name = "final-project-cluster"
 }
+#Defines how your container should run.
+#Think of it as a blueprint for containers.
 resource "aws_ecs_task_definition" "main" {
  family                   = "final-project-task"
  network_mode             = "awsvpc"
@@ -14,8 +16,8 @@ container_definitions = jsonencode([
     name      = "final-container"
     image     = "public.ecr.aws/amazonlinux/amazonlinux:latest"
     essential = true
-    command   = ["echo", "Main processing from ECS"]
     command = ["sh", "-c", "echo Processing file from $BUCKET/$KEY"]
+    #send logs to cloudwatch 
     logConfiguration = {
       logDriver = "awslogs"
       options = {

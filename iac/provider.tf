@@ -5,7 +5,7 @@ terraform {
       version = ">= 4.0"
     }
   }
-  backend "s3" {
+  backend "s3" {  #Enables state locking
     bucket         = "gotham0256-terraform-state-bucket"
     key            = "final-project/terraform.tfstate"
     region         = "ap-south-1"

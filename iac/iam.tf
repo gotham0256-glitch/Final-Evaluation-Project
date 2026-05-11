@@ -1,5 +1,7 @@
+#This defines who is allowed to assume (use) the role.
 data "aws_iam_policy_document" "assume_role" {
  statement {
+  #This means services can “take” this role temporarily.
    actions = ["sts:AssumeRole"]
    principals {
      type = "Service"
@@ -11,8 +13,10 @@ data "aws_iam_policy_document" "assume_role" {
    }
  }
 }
+#Creates the IAM role.
 resource "aws_iam_role" "main" {
  name               = "final-project-role"
+ #Attaches the trust policy
  assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 resource "aws_iam_instance_profile" "ec2_profile" {
@@ -47,16 +51,6 @@ resource "aws_iam_role_policy" "stepfunction_logs" {
          "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents",
-        #   "logs:DescribeLogGroups", 
-        #  "logs:DescribeLogStreams",
-        #  "logs:CreateLogDelivery",
-        #  "logs:GetLogDelivery",
-        #  "logs:UpdateLogDelivery",
-        #  "logs:DeleteLogDelivery",
-        #  "logs:ListLogDeliveries",
-        #  "logs:PutResourcePolicy",
-        #  "logs:DescribeResourcePolicies",
-        #  "logs:DescribeLogGroups"
         ]
         Resource = "*"
       }
