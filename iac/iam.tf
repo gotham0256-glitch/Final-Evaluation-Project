@@ -23,23 +23,18 @@ resource "aws_iam_instance_profile" "ec2_profile" {
  name = "ec2-profile"
  role = aws_iam_role.main.name
 }
-resource "aws_iam_role_policy_attachment" "ec2_full" {  #ec2
-  role = aws_iam_role.main.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+
+resource "aws_iam_role_policy_attachment" "policies" {
+ for_each = {
+   ec2_full    = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+   ecs_exec    = "arn:aws:iam::aws:policy/AmazonECS_FullAccess"
+   step_fn     = "arn:aws:iam::aws:policy/AWSStepFunctionsFullAccess"
+   eventbridge = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
+ }
+ role       = aws_iam_role.main.name
+ policy_arn = each.value
 }
 
-resource "aws_iam_role_policy_attachment" "ecs_exec" {   #ecs
- role       = aws_iam_role.main.name
- policy_arn = "arn:aws:iam::aws:policy/AmazonECS_FullAccess"
-}
-resource "aws_iam_role_policy_attachment" "step_fn" {   # step_function
- role       = aws_iam_role.main.name
- policy_arn = "arn:aws:iam::aws:policy/AWSStepFunctionsFullAccess"
-}
-resource "aws_iam_role_policy_attachment" "eventbridge" {
- role       = aws_iam_role.main.name
- policy_arn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
-}
 resource "aws_iam_role_policy" "stepfunction_logs" {
   role = aws_iam_role.main.id
   policy = jsonencode({
